@@ -36,7 +36,7 @@ def call(HiveSpaceProject project, String tag = "${env.BUILD_NUMBER}") {
             stage('Deploy to Azure Static Web Apps') {
                 steps {
                     script {
-                        def app = project.apps[0]
+                        // def app = project.apps[0]
                         def outputLocation = 'dist'
 
                         echo "🚀 Deploying to Azure Static Web Apps from ${outputLocation}"
