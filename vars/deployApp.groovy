@@ -7,10 +7,13 @@ def call(HiveSpaceProject project, String tag = "${env.BUILD_NUMBER}") {
                 label 'UbuntuSlave01'
             }
         }
+        environment {
+            AZURE_STATIC_WEB_APPS_API_TOKEN = credentials('azure-static-web-apps-deploy-token')
+        }
         stages {
             stage('Notify that the build has started') {
                 steps {
-                    echo 'Notify that the build has started'
+                    echo '📦 Starting Azure Static Web App deployment process...'
                 }
             }
             stage('Checkout') {
@@ -25,25 +28,25 @@ def call(HiveSpaceProject project, String tag = "${env.BUILD_NUMBER}") {
                     sh 'npm install'
                 }
             }
-
-
-            stage('Build & Push All Apps') {
+            stage('Build the App') {
+                steps {
+                    sh 'npm run build'
+                }
+            }
+            stage('Deploy to Azure Static Web Apps') {
                 steps {
                     script {
-                        withCredentials([usernamePassword(
-                            credentialsId: project.credentialsId,
-                            usernameVariable: 'DOCKER_USERNAME',
-                            passwordVariable: 'DOCKER_PASSWORD'
-                        )]) {
-                            sh "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin"
+                        def app = project.apps[0]
+                        def outputLocation = app.outputDir ?: 'dist'
 
-                            project.apps.each { app ->
-                                def imageTag = app.getFullImageTag(tag)
-                                echo "🔧 Building image for ${app.name} at ${app.buildContext}"
-                                sh "docker build -t ${imageTag} ${app.buildContext}"
-                                sh "docker push ${imageTag}"
-                            }
-                        }
+                        echo "🚀 Deploying to Azure Static Web Apps from ${outputLocation}"
+                        sh """
+                            curl -X POST "https://brave-dune-07a2b8e00.6.azurestaticapps.net/api/deploy" \
+                            -H "Authorization: Bearer $AZURE_STATIC_WEB_APPS_API_TOKEN" \
+                            -F "build=@${outputLocation}"
+                        """
+                    // OR: Use Azure CLI if available
+                    // sh "az staticwebapp upload --name ${app.azureAppName} --source ${outputLocation} --token $AZURE_STATIC_WEB_APPS_API_TOKEN"
                     }
                 }
             }
@@ -51,7 +54,10 @@ def call(HiveSpaceProject project, String tag = "${env.BUILD_NUMBER}") {
 
         post {
             success {
-                echo '✅ All images built and pushed successfully'
+                echo '✅ Deployment to Azure Static Web Apps succeeded.'
+            }
+            failure {
+                echo '❌ Deployment to Azure Static Web Apps failed.'
             }
         }
     }
