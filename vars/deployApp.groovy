@@ -41,9 +41,7 @@ def call(HiveSpaceProject project, String tag = "${env.BUILD_NUMBER}") {
 
                         echo "🚀 Deploying to Azure Static Web Apps from ${outputLocation}"
                         sh """
-                            curl -X POST "https://brave-dune-07a2b8e00.6.azurestaticapps.net/api/deploy" \
-                            -H "Authorization: Bearer $AZURE_STATIC_WEB_APPS_API_TOKEN" \
-                            -F "build=@${outputLocation}"
+                            swa deploy ${outputLocation} --deployment-token $AZURE_STATIC_WEB_APPS_API_TOKEN
                         """
                     // OR: Use Azure CLI if available
                     // sh "az staticwebapp upload --name ${app.azureAppName} --source ${outputLocation} --token $AZURE_STATIC_WEB_APPS_API_TOKEN"
