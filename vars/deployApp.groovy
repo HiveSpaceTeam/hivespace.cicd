@@ -41,7 +41,7 @@ def call(HiveSpaceProject project, String tag = "${env.BUILD_NUMBER}") {
 
                         echo "🚀 Deploying to Azure Static Web Apps from ${outputLocation}"
                         sh """
-                            swa deploy ${outputLocation} --deployment-token $AZURE_STATIC_WEB_APPS_API_TOKEN
+                            swa deploy ${outputLocation} --deployment-token $AZURE_STATIC_WEB_APPS_API_TOKEN  --env production
                         """
                     // OR: Use Azure CLI if available
                     // sh "az staticwebapp upload --name ${app.azureAppName} --source ${outputLocation} --token $AZURE_STATIC_WEB_APPS_API_TOKEN"
