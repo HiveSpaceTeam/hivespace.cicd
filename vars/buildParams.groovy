@@ -1,4 +1,4 @@
-import hivespace.constants.HiveSpaceConstants
+import hivespace.constants.*;
 
 def call() {
     def projects = HiveSpaceConstants.allProjects
