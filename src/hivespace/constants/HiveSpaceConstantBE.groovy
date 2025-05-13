@@ -2,7 +2,7 @@ package hivespace.constants
 
 import hivespace.entity.*
 
-public class HiveSpaceConstantFE {
+public class HiveSpaceConstantBE {
     
     static HiveSpaceProject project = new HiveSpaceProject(
         name: 'HiveSpace backend',
