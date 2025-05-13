@@ -16,6 +16,14 @@ class HiveSpaceProject implements Serializable {
         this.apps = args.apps ?: []
     }
 
+    void buildAllApps() {
+        println "Starting build for project: ${name}"
+        apps.each { app ->
+            println "Building app: ${app.name}"
+            app.build()  // Gọi hàm build của từng app
+        }
+    }
+
     String toString() {
         return """\
 HiveSpaceProject(

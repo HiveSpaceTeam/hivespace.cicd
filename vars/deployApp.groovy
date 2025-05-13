@@ -13,7 +13,7 @@ def call(HiveSpaceProject project, String tag = "${env.BUILD_NUMBER}") {
         stages {
             stage('Notify that the build has started') {
                 steps {
-                    echo '📦 Starting Azure Static Web App deployment process...'
+                    echo '📦Build has started...'
                 }
             }
             stage('Checkout') {
@@ -28,23 +28,20 @@ def call(HiveSpaceProject project, String tag = "${env.BUILD_NUMBER}") {
                     sh 'npm install'
                 }
             }
-            stage('Build the App') {
-                steps {
-                    sh 'npm run build'
-                }
+            stage('Build Apps') {
+                // steps {
+                //     sh 'npm run build'
+                // }
+                buildApps(project, project.branch)
             }
             stage('Deploy to Azure Static Web Apps') {
                 steps {
                     script {
-                        // def app = project.apps[0]
                         def outputLocation = 'dist'
-
                         echo "🚀 Deploying to Azure Static Web Apps from ${outputLocation}"
                         sh """
                             swa deploy ${outputLocation} --deployment-token $AZURE_STATIC_WEB_APPS_API_TOKEN  --env production
                         """
-                    // OR: Use Azure CLI if available
-                    // sh "az staticwebapp upload --name ${app.azureAppName} --source ${outputLocation} --token $AZURE_STATIC_WEB_APPS_API_TOKEN"
                     }
                 }
             }

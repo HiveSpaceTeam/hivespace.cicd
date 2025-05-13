@@ -1,0 +1,43 @@
+def call() {
+    properties([
+        parameters([
+            choice(
+                name: 'PROJECT_NAME',
+                choices: ['ProjectA', 'ProjectB', 'ProjectC'],
+                description: 'Chọn project cần build'
+            ),
+            [$class: 'CascadeChoiceParameter',
+                choiceType: 'PT_MULTI_SELECT',
+                description: 'Chọn image cần build (phụ thuộc vào project đã chọn)',
+                filterLength: 1,
+                filterable: true,
+                name: 'IMAGE_NAME',
+                randomName: 'param_image_name',
+                referencedParameters: 'PROJECT_NAME',
+                script: [
+                    $class: 'GroovyScript',
+                    fallbackScript: [classpath: [], sandbox: true, script: 'return ["Không có image nào"]'],
+                    script: [
+                        classpath: [],
+                        sandbox: true,
+                        script: '''
+                            if (PROJECT_NAME == "ProjectA") return ["image-a1", "image-a2"]
+                            if (PROJECT_NAME == "ProjectB") return ["image-b1", "image-b2"]
+                            return ["default-image"]
+                        '''
+                    ]
+                ]
+            ],
+            choice(
+                name: 'ENVIRONMENT',
+                choices: ['dev', 'staging', 'production'],
+                description: 'Build code cho môi trường nào'
+            ),
+            string(
+                name: 'BRANCH',
+                defaultValue: '',
+                description: 'Lấy code từ nhánh nào. Để trống tự động lấy từ tham số branch'
+            )
+        ])
+    ])
+}

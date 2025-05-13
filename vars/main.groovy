@@ -1,11 +1,9 @@
 import hivespace.constants.*
 
-
-
-void deployNetCore() {
-    
+void deployBE() {
+    deployApp(HiveSpaceConstantBE.project)
 }
 
-void deployFE(){
+void deployFE() {
     deployApp(HiveSpaceConstantFE.project)
 }

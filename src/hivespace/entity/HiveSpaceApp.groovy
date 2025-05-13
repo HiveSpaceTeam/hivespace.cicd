@@ -1,4 +1,3 @@
-
 package hivespace.entity
 
 class HiveSpaceApp implements Serializable {
@@ -6,6 +5,12 @@ class HiveSpaceApp implements Serializable {
     String name
     String dockerImage
     String buildContext
+
+    /**
+    * 1: net core
+    * 2: nodejs
+    */
+    Integer buildFrameworkType
 
     HiveSpaceApp(Map args = [:]) {
         this.name = args.name
