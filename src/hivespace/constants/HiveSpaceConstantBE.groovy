@@ -11,6 +11,7 @@ public class HiveSpaceConstantBE {
         credentialsId: 'dockerhub-credentials',
         apps: [
             new HiveSpaceApp(name: 'hivespaceapp', dockerImage: 'dblmint/hivespace-hivespaceapp'),
+            new HiveSpaceApp(name: 'hivespaceauth', dockerImage: 'dblmint/hivespace-hivespaceauth'),
         ]
     )
 

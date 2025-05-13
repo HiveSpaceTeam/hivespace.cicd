@@ -1,12 +1,18 @@
+import hivespace.constants.HiveSpaceConstants
+
 def call() {
+    def projects = HiveSpaceConstants.allProjects
+    def projectNames = projects*.name  
+
     properties([
         parameters([
             choice(
                 name: 'PROJECT_NAME',
-                choices: ['ProjectA', 'ProjectB', 'ProjectC'],
+                choices: projectNames,
                 description: 'Chọn project cần build'
             ),
-            [$class: 'CascadeChoiceParameter',
+            [
+                $class: 'CascadeChoiceParameter',
                 choiceType: 'PT_MULTI_SELECT',
                 description: 'Chọn image cần build (phụ thuộc vào project đã chọn)',
                 filterLength: 1,
@@ -20,11 +26,13 @@ def call() {
                     script: [
                         classpath: [],
                         sandbox: true,
-                        script: '''
-                            if (PROJECT_NAME == "ProjectA") return ["image-a1", "image-a2"]
-                            if (PROJECT_NAME == "ProjectB") return ["image-b1", "image-b2"]
-                            return ["default-image"]
-                        '''
+                        script: """
+                            import hivespace.constants.HiveSpaceConstants
+                            def projectName = PROJECT_NAME
+                            def project = HiveSpaceConstants.allProjects.find { it.name == projectName }
+                            if (project == null) return ["Không tìm thấy project"]
+                            return project.apps*.name
+                        """
                     ]
                 ]
             ],
