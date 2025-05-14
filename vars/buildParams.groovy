@@ -28,8 +28,10 @@ def call() {
                         sandbox: true,
                         script: '''
                             import hivespace.constants.*
-                            def projectName =  binding.getVariable("PROJECT_NAME")
-                           
+                            def project = HiveSpaceConstants.allProjects.find { it.name == PROJECT_NAME }
+                            if (project == null) {
+                                return ["Không tìm thấy project"]
+                            }
                             
                           return ["image-b1", "image-b2"]
                         '''
