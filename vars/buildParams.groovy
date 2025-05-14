@@ -36,7 +36,7 @@ def call() {
                             }
                                println "Found project: \$project.name"
                                 println "Apps: " + project.apps*.name
-                            return  return ["image1", "image2", "image3"] 
+                            return   ["image1", "image2", "image3"]
                         '''
                     ]
                 ]
