@@ -24,10 +24,15 @@ def call(HiveSpaceProject project, String tag = "${env.BUILD_NUMBER}") {
                 }
             }
 
-            if (true) {
-                deployStaticWebApp()
+            stage('Build and Deploy') {
+                steps {
+                    script {
+                        if (true) {
+                            deployStaticWebApp()
+                        }
+                    }
+                }
             }
-
         }
 
         post {
