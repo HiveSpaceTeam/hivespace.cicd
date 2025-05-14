@@ -27,10 +27,9 @@ def call() {
                         classpath: [],
                         sandbox: true,
                         script: '''
-                           
-                               println "Found project: \$project.name"
-                                println "Apps: " + project.apps*.name
-                            return   ["image1", "image2", "image3"]
+                           if (PROJECT_NAME == "ProjectA") return ["image-a1", "image-a2"]
+                            if (PROJECT_NAME == "ProjectB") return ["image-b1", "image-b2"]
+                            return ["default-image"]
                         '''
                     ]
                 ]
