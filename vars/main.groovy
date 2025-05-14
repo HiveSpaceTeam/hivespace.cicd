@@ -7,3 +7,7 @@ void deployBE() {
 void deployFE() {
     deployApp(HiveSpaceConstantFE.project)
 }
+
+void deployManual() {
+    deployAppManual()
+}

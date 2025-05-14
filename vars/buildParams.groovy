@@ -15,7 +15,7 @@ def call() {
     def imageScript = """
         import groovy.json.JsonSlurper
         def projectImageMap = new JsonSlurper().parseText('${JsonOutput.toJson(projectImageMap)}')
-        return projectImageMap[PROJECT_NAME] ?: ["Không có image nào 123a"]
+        return projectImageMap[PROJECT_NAME] ?: ["Không có image nào"]
     """
 
     properties([
