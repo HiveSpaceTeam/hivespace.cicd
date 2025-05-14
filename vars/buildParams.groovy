@@ -1,4 +1,4 @@
-import hivespace.constants.*;
+import hivespace.constants.HiveSpaceConstants
 
 def call() {
     def projects = HiveSpaceConstants.allProjects
@@ -27,7 +27,11 @@ def call() {
                         classpath: [],
                         sandbox: true,
                         script: """
-                          
+                            import hivespace.constants.*
+                            def projectName = PROJECT_NAME
+                            def project = HiveSpaceConstants.allProjects.find { it.name == projectName }
+                            if (project == null) return ["Không tìm thấy project"]
+                            return project.apps*.name
                         """
                     ]
                 ]
