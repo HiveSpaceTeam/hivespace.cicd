@@ -2,7 +2,7 @@ import hivespace.constants.HiveSpaceConstants
 
 def call() {
     def projects = HiveSpaceConstants.allProjects
-    def projectNames = projects*.name  
+    def projectNames = projects*.name
 
     properties([
         parameters([
@@ -26,13 +26,17 @@ def call() {
                     script: [
                         classpath: [],
                         sandbox: true,
-                        script: """
+                        script: '''
                             import hivespace.constants.*
                             def projectName =  binding.getVariable("PROJECT_NAME")
                             def project = HiveSpaceConstants.allProjects.find { it.name == projectName }
-                            if (project == null) return ["Không tìm thấy project"]
+                            if (project == null) {
+                                println "Không tìm thấy project tương ứng"
+                                return ["Không tìm thấy project"]
+                            }
+
                             return project.apps*.name
-                        """
+                        '''
                     ]
                 ]
             ],

@@ -30,6 +30,7 @@ def call(HiveSpaceProject project, String tag = "${env.BUILD_NUMBER}") {
             }
             stage('Build Apps') {
                 steps {
+                    // sh 'npm run build'
                     buildApps(project, project.branch)
                 }
             }
