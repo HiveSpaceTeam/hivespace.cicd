@@ -14,9 +14,8 @@ def call() {
     // Tạo script chuỗi động cho CascadeChoice
     def imageScript = """
         import groovy.json.JsonSlurper
-        def project = binding.getVariable("PROJECT_NAME")
         def projectImageMap = new JsonSlurper().parseText('${JsonOutput.toJson(projectImageMap)}')
-        return projectImageMap[project] ?: ["Không có image nào 123a"]
+        return projectImageMap[PROJECT_NAME] ?: ["Không có image nào 123a"]
     """
 
     properties([
