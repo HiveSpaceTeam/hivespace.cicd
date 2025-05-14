@@ -27,9 +27,14 @@ def call() {
                         classpath: [],
                         sandbox: true,
                         script: '''
-                           if (PROJECT_NAME == "ProjectA") return ["image-a1", "image-a2"]
-                            if (PROJECT_NAME == "ProjectB") return ["image-b1", "image-b2"]
-                            return ["default-image"]
+                            import hivespace.constants.*
+                            def projectName =  binding.getVariable("PROJECT_NAME")
+                            def project = HiveSpaceConstants.allProjects.find { it.name == projectName }
+                            if (project == null) {
+                                return ["Không tìm thấy project"]
+                            }
+                            
+                          return ["image-b1", "image-b2"]
                         '''
                     ]
                 ]
