@@ -25,11 +25,10 @@ def call() {
                     fallbackScript: [classpath: [], sandbox: true, script: 'return ["Không có image nào"]'],
                     script: [
                         classpath: [],
-                        sandbox: false,
+                        sandbox: true,
                         script: '''
-                            import hivespace.constants.HiveSpaceConstants
 
-                            def project = HiveSpaceConstants.allProjects
+                            def project = HiveSpaceConstants.allProjects.find { it.name == PROJECT_NAME }
                             
                             
                           return ["image-b1", "image-b2"]
