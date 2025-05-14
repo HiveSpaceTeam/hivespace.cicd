@@ -27,13 +27,7 @@ def call() {
                         classpath: [],
                         sandbox: true,
                         script: '''
-                            import hivespace.constants.*
-                            def projectName =  binding.getVariable("PROJECT_NAME")
-                            def project = HiveSpaceConstants.allProjects.find { it.name == projectName }
-                            if (project == null) {
-                                println "Không tìm thấy project tương ứng"
-                                return ["Không tìm thấy project"]
-                            }
+                           
                                println "Found project: \$project.name"
                                 println "Apps: " + project.apps*.name
                             return   ["image1", "image2", "image3"]
