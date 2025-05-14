@@ -40,7 +40,7 @@ def call() {
                     fallbackScript: [
                         classpath: [],
                         sandbox: true,
-                        script: 'return ["Không có image nào"]'
+                        script: 'return ["Lỗi - Không có image nào"]'
                     ],
                     script: [
                         classpath: [],
