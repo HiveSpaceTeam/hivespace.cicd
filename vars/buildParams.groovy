@@ -28,7 +28,8 @@ def call() {
                         sandbox: true,
                         script: '''
                             import hivespace.constants.*
-                          
+                            def projectName =  binding.getVariable("PROJECT_NAME")
+                           
                             
                           return ["image-b1", "image-b2"]
                         '''
