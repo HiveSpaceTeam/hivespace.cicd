@@ -1,0 +1,7 @@
+out/*
+lib/*
+hivespacecicd.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/libraries/groovy_5_0_0_alpha_1.xml
