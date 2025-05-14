@@ -16,7 +16,7 @@ def call() {
         import groovy.json.JsonSlurper
         def project = binding.getVariable("PROJECT_NAME")
         def projectImageMap = new JsonSlurper().parseText('${JsonOutput.toJson(projectImageMap)}')
-        return projectImageMap[project] ?: ["Không có image nào"]
+        return projectImageMap[project] ?: ["Không có image nào 123a"]
     """
 
     properties([
