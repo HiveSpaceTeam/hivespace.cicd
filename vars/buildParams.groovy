@@ -29,9 +29,7 @@ def call() {
                         script: '''
                             import hivespace.constants.*
                             def project = HiveSpaceConstants.allProjects.find { it.name == PROJECT_NAME }
-                            if (project == null) {
-                                return ["Không tìm thấy project"]
-                            }
+                            
                             
                           return ["image-b1", "image-b2"]
                         '''
