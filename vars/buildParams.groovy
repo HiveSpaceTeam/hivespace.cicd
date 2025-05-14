@@ -27,7 +27,7 @@ def call() {
                         classpath: [],
                         sandbox: true,
                         script: '''
-                            import hivespace.constants.*
+                            import hivespace.constants.HiveSpaceConstants
                             def project = HiveSpaceConstants.allProjects.find { it.name == PROJECT_NAME }
                             
                             
