@@ -1,8 +1,23 @@
+import groovy.json.JsonOutput
 import hivespace.constants.HiveSpaceConstants
 
 def call() {
     def projects = HiveSpaceConstants.allProjects
     def projectNames = projects*.name
+
+    // Tạo Map từ tên project => danh sách image
+    def projectImageMap = [:]
+    for (project in projects) {
+        projectImageMap[project.name] = project.apps*.name // hoặc *.imageName nếu là image
+    }
+
+    // Tạo script chuỗi động cho CascadeChoice
+    def imageScript = """
+        import groovy.json.JsonSlurper
+        def project = binding.getVariable("PROJECT_NAME")
+        def projectImageMap = new JsonSlurper().parseText('${JsonOutput.toJson(projectImageMap)}')
+        return projectImageMap[project] ?: ["Không có image nào"]
+    """
 
     properties([
         parameters([
@@ -22,17 +37,15 @@ def call() {
                 referencedParameters: 'PROJECT_NAME',
                 script: [
                     $class: 'GroovyScript',
-                    fallbackScript: [classpath: [], sandbox: true, script: 'return ["Không có image nào"]'],
+                    fallbackScript: [
+                        classpath: [],
+                        sandbox: true,
+                        script: 'return ["Không có image nào"]'
+                    ],
                     script: [
                         classpath: [],
                         sandbox: true,
-                        script: '''
-
-                            def project = HiveSpaceConstants.allProjects.find { it.name == PROJECT_NAME }
-                            
-                            
-                          return ["image-b1", "image-b2"]
-                        '''
+                        script: imageScript
                     ]
                 ]
             ],
