@@ -29,10 +29,9 @@ def call(HiveSpaceProject project, String tag = "${env.BUILD_NUMBER}") {
                 }
             }
             stage('Build Apps') {
-                // steps {
-                //     sh 'npm run build'
-                // }
-                buildApps(project, project.branch)
+                steps {
+                    buildApps(project, project.branch)
+                }
             }
             stage('Deploy to Azure Static Web Apps') {
                 steps {
