@@ -1,5 +1,5 @@
 import hivespace.entity.*
 
-void call(HiveSpaceProject project, String branch) {
+def call(HiveSpaceProject project, String branch) {
     project.buildAllApps()
 }
