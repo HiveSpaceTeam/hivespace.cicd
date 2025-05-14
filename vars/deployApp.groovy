@@ -23,36 +23,19 @@ def call(HiveSpaceProject project, String tag = "${env.BUILD_NUMBER}") {
                     }
                 }
             }
-            stage('Install node dependencies') {
-                steps {
-                    sh 'npm install'
-                }
+
+            if (true) {
+                deployStaticWebApp()
             }
-            stage('Build Apps') {
-                steps {
-                    // sh 'npm run build'
-                    buildApps(project, project.branch)
-                }
-            }
-            // stage('Deploy to Azure Static Web Apps') {
-            //     steps {
-            //         script {
-            //             def outputLocation = 'dist'
-            //             echo "🚀 Deploying to Azure Static Web Apps from ${outputLocation}"
-            //             sh """
-            //                 swa deploy ${outputLocation} --deployment-token $AZURE_STATIC_WEB_APPS_API_TOKEN  --env production
-            //             """
-            //         }
-            //     }
-            // }
+
         }
 
         post {
             success {
-                echo '✅ Deployment to Azure Static Web Apps succeeded.'
+                echo '✅ DONE.'
             }
             failure {
-                echo '❌ Deployment to Azure Static Web Apps failed.'
+                echo '❌ FAILED.'
             }
         }
     }
