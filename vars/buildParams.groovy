@@ -28,7 +28,8 @@ def call() {
                         sandbox: true,
                         script: '''
                             import hivespace.constants.HiveSpaceConstants
-                            def project = HiveSpaceConstants.allProjects.find { it.name == PROJECT_NAME }
+
+                            def project = HiveSpaceConstants.allProjects
                             
                             
                           return ["image-b1", "image-b2"]
