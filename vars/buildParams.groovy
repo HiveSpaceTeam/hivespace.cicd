@@ -25,7 +25,7 @@ def call() {
                     fallbackScript: [classpath: [], sandbox: true, script: 'return ["Không có image nào"]'],
                     script: [
                         classpath: [],
-                        sandbox: true,
+                        sandbox: false,
                         script: '''
                             import hivespace.constants.HiveSpaceConstants
 
