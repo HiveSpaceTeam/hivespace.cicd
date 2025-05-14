@@ -27,6 +27,7 @@ def call() {
                         classpath: [],
                         sandbox: true,
                         script: '''
+                            import hivespace.constants.*
                           
                             
                           return ["image-b1", "image-b2"]
