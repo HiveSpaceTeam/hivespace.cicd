@@ -5,7 +5,7 @@ import hivespace.entity.*
 public class HiveSpaceConstants {
 
     static List<HiveSpaceProject> allProjects = [
-       HiveSpaceConstantFE.project ,
+        HiveSpaceConstantFE.project,
         HiveSpaceConstantBE.project
     ]
 
