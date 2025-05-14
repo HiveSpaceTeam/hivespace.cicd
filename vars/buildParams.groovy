@@ -34,7 +34,8 @@ def call() {
                                 println "Không tìm thấy project tương ứng"
                                 return ["Không tìm thấy project"]
                             }
-
+                               println "Found project: \$project.name"
+                                println "Apps: " + project.apps*.name
                             return project.apps*.name
                         '''
                     ]
