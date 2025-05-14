@@ -19,7 +19,7 @@ def call(HiveSpaceProject project, String tag = "${env.BUILD_NUMBER}") {
             stage('Checkout') {
                 steps {
                     script {
-                        git branch: project.branch, url: project.gitRepo
+                        git branch: params.BRANCH, url: project.gitRepo
                     }
                 }
             }
@@ -27,9 +27,10 @@ def call(HiveSpaceProject project, String tag = "${env.BUILD_NUMBER}") {
             stage('Build and Deploy') {
                 steps {
                     script {
-                        if (true) {
-                            deployStaticWebApp()
-                        }
+                        // if (true) {
+                        //     deployStaticWebApp()
+                        // }
+                        buildApps(project)
                     }
                 }
             }
