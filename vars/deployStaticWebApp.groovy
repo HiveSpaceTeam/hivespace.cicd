@@ -1,6 +1,6 @@
 import hivespace.entity.*
 
-def call(HiveSpaceProject project, String tag = "${env.BUILD_NUMBER}") {
+def call() {
     stages {
         stage('Install node dependencies') {
             steps {
