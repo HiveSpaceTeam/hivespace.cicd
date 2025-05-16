@@ -27,10 +27,10 @@ def call(HiveSpaceProject project, String tag = "${env.BUILD_NUMBER}") {
             stage('Build and Deploy') {
                 steps {
                     script {
-                        // if (true) {
-                        //     deployStaticWebApp()
-                        // }
-                        buildApps(project)
+                        if (true) {
+                            deployStaticWebApp()
+                        }
+                        // buildApps(project)
                     }
                 }
             }
