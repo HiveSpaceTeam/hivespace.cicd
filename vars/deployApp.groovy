@@ -30,7 +30,7 @@ def call(HiveSpaceProject project, String tag = "${env.BUILD_NUMBER}") {
                         // if (true) {
                         //     deployStaticWebApp()
                         // }
-                        buildApps()
+                        buildApps(project)
                     }
                 }
             }
