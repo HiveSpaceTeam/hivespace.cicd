@@ -6,7 +6,7 @@ def call(HiveSpaceProject project) {
     project.apps.each { app ->
         switch (app.buildFrameworkType) {
             case HiveSpaceConstants.netCore:
-                deployDotnetCore()
+                deployDotnetCore(app)
                 break
             case HiveSpaceConstants.nodeJsSWA:
                 deployStaticWebApp(app)
