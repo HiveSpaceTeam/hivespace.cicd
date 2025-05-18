@@ -16,6 +16,7 @@ class HiveSpaceApp implements Serializable {
         this.name = args.name
         this.dockerImage = args.dockerImage
         this.buildContext = args.buildContext ?: '.'
+        this.buildFrameworkType = args.buildFrameworkType
     }
 
     String getFullImageTag(String tag = 'latest') {
