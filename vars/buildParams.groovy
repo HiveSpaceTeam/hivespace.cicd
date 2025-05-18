@@ -55,7 +55,7 @@ def call() {
             ),
             string(
                 name: 'BRANCH',
-                defaultValue: '',
+                defaultValue: 'master',
                 description: 'Lấy code từ nhánh nào. Để trống tự động lấy từ tham số branch'
             )
         ])
