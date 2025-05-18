@@ -16,11 +16,6 @@ def call(HiveSpaceProject project, String tag = "${env.BUILD_NUMBER}") {
                     echo '📦Build has started...'
                 }
             }
-            stage('Clean Workspace') {
-                steps {
-                    cleanWs()
-                }
-            }
             stage('Checkout') {
                 steps {
                     script {
