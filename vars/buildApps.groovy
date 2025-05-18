@@ -2,8 +2,8 @@ import hivespace.entity.*
 import hivespace.constants.HiveSpaceConstants
 
 def call(HiveSpaceProject project) {
-    echo "build apps  buildFrameworkType: ${app.buildFrameworkType} - ${HiveSpaceConstants.netCore} - ${HiveSpaceConstants.nodeJsSWA}"
     project.apps.each { app ->
+    echo "build apps  buildFrameworkType: ${app.buildFrameworkType} - ${HiveSpaceConstants.netCore} - ${HiveSpaceConstants.nodeJsSWA}"
         switch (app.buildFrameworkType) {
             case HiveSpaceConstants.netCore:
                 deployDotnetCore(project, app)
