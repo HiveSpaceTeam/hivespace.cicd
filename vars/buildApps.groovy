@@ -26,7 +26,7 @@ void deployDotnetCore(HiveSpaceProject project, HiveSpaceApp app) {
                         )]) {
                 sh "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin"
 
-                def imageTag = app.getFullImageTag(env.BUILD_NUMBER)
+                def imageTag = app.getFullImageTag("${env.BUILD_NUMBER}")
                 echo "🔧 Building image for ${app.name} at ${app.buildContext}"
                 sh "docker build -t ${imageTag} ${app.buildContext}"
                 sh "docker push ${imageTag}"
