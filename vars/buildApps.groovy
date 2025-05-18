@@ -6,10 +6,10 @@ def call(HiveSpaceProject project) {
     project.apps.each { app ->
         switch (app.buildFrameworkType) {
             case HiveSpaceConstants.netCore:
-                deployDotnetCore(app)
+                deployDotnetCore(project, app)
                 break
             case HiveSpaceConstants.nodeJsSWA:
-                deployStaticWebApp(app)
+                deployStaticWebApp(project, app)
                 break
             default:
                 throw new Exception("No support for this type: ${app.buildFrameworkType}")
@@ -17,7 +17,7 @@ def call(HiveSpaceProject project) {
     }
 }
 
-void deployDotnetCore(HiveSpaceApp app) {
+void deployDotnetCore(HiveSpaceProject project, HiveSpaceApp app) {
     withCredentials([usernamePassword(
                             credentialsId: project.credentialsId,
                             usernameVariable: 'DOCKER_USERNAME',

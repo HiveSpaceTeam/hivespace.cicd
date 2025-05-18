@@ -9,7 +9,7 @@ public class HiveSpaceConstantFE {
         gitRepo: 'https://github.com/HiveSpaceTeam/hivespace.frontend',
         credentialsId: 'dockerhub-credentials',
         apps: [
-            new HiveSpaceApp(name: 'frontend', dockerImage: 'dblmint/hivespace-frontend', buildFrameworkType: 1),
+            new HiveSpaceApp(name: 'frontend', dockerImage: 'dblmint/hivespace-frontend', buildFrameworkType: 2),
         ]
     )
 
