@@ -12,7 +12,7 @@ def call(HiveSpaceProject project) {
                 deployStaticWebApp(app)
                 break
             default:
-                throw new Exception('No support for this type')
+                throw new Exception("No support for this type: ${app.buildFrameworkType}")
         }
     }
 }
@@ -29,5 +29,5 @@ void deployDotnetCore(HiveSpaceApp app) {
             echo "🔧 Building image for ${app.name} at ${app.buildContext}"
             sh "docker build -t ${imageTag} ${app.buildContext}"
             sh "docker push ${imageTag}"
-        }
+                        }
 }
