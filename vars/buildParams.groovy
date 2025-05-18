@@ -8,7 +8,7 @@ def call() {
     // Tạo Map từ tên project => danh sách image
     def projectImageMap = [:]
     for (project in projects) {
-        projectImageMap[project.name] = project.apps*.name // hoặc *.imageName nếu là image
+        projectImageMap[project.name] = project.apps*.name 
     }
 
     // Tạo script chuỗi động cho CascadeChoice

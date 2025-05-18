@@ -9,4 +9,6 @@ public class HiveSpaceConstants {
         HiveSpaceConstantBE.project
     ]
 
+    static netCore = 1;
+    static nodeJsSWA = 2;
 }

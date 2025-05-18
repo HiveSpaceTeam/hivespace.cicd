@@ -8,7 +8,7 @@ class HiveSpaceApp implements Serializable {
 
     /**
     * 1: net core
-    * 2: nodejs
+    * 2: nodejs - static web app
     */
     Integer buildFrameworkType
 
