@@ -19,7 +19,6 @@ def call(HiveSpaceProject project) {
 
 void deployDotnetCore(HiveSpaceProject project, HiveSpaceApp app) {
     stage('Build & Push All Apps') {
-                steps {
             withCredentials([usernamePassword(
                             credentialsId: project.credentialsId,
                             usernameVariable: 'DOCKER_USERNAME',
@@ -31,7 +30,6 @@ void deployDotnetCore(HiveSpaceProject project, HiveSpaceApp app) {
                 echo "🔧 Building image for ${app.name} at ${app.buildContext}"
                 sh "docker build -t ${imageTag} ${app.buildContext}"
                 sh "docker push ${imageTag}"
-                        }
         }
     }
 }
