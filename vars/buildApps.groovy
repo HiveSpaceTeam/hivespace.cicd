@@ -12,7 +12,7 @@ def call(HiveSpaceProject project) {
                 deployStaticWebApp(app)
                 break
             default:
-                throw new Exception()
+                throw new Exception('No support for this type')
         }
     }
 }
