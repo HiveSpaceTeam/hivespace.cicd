@@ -9,7 +9,7 @@ def call(HiveSpaceProject project) {
                 deployDotnetCore(project, app)
                 break
             case HiveSpaceConstants.nodeJsSWA:
-                deployStaticWebApp(project, app)
+                deployStaticWebApp()
                 break
             default:
                 throw new Exception("No support for this type: ${app.buildFrameworkType}")
