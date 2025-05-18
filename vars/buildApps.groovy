@@ -3,7 +3,7 @@ import hivespace.constants.HiveSpaceConstants
 
 def call(HiveSpaceProject project) {
     project.apps.each { app ->
-    echo "build apps  buildFrameworkType: ${app.buildFrameworkType} - ${HiveSpaceConstants.netCore} - ${HiveSpaceConstants.nodeJsSWA}"
+        echo "build apps  buildFrameworkType: ${app.buildFrameworkType} - ${HiveSpaceConstants.netCore} - ${HiveSpaceConstants.nodeJsSWA}"
         switch (app.buildFrameworkType) {
             case HiveSpaceConstants.netCore:
                 deployDotnetCore(project, app)
@@ -28,9 +28,10 @@ void deployDotnetCore(HiveSpaceProject project, HiveSpaceApp app) {
 
                 def imageTag = app.getFullImageTag("${env.BUILD_NUMBER}")
                 echo "🔧 Building image for ${app.name} at ${app.buildContext}"
-                sh "cd HiveSpace"
+            dir('HiveSpace') {
                 sh "docker build -t ${imageTag} -f ${app.buildContext}"
                 sh "docker push ${imageTag}"
+            }
         }
     }
 }
