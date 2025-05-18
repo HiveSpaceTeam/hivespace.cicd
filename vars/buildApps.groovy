@@ -1,4 +1,5 @@
 import hivespace.entity.*
+import hivespace.constants.HiveSpaceConstants
 
 def call(HiveSpaceProject project) {
     echo 'build apps'
