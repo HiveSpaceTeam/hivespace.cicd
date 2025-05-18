@@ -28,6 +28,7 @@ void deployDotnetCore(HiveSpaceProject project, HiveSpaceApp app) {
 
                 def imageTag = app.getFullImageTag("${env.BUILD_NUMBER}")
                 echo "🔧 Building image for ${app.name} at ${app.buildContext}"
+                sh "cd HiveSpace"
                 sh "docker build -t ${imageTag} -f ${app.buildContext}"
                 sh "docker push ${imageTag}"
         }
