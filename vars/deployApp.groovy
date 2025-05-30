@@ -27,7 +27,7 @@ def call(HiveSpaceProject project, String tag = "${env.BUILD_NUMBER}") {
             stage('Build and Deploy') {
                 steps {
                     script {
-                        buildApps(project)
+                        buildApps(project, params.BRANCH)
                     }
                 }
             }

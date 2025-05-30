@@ -6,11 +6,13 @@ class HiveSpaceProject implements Serializable {
     String gitRepo
     String branch
     String credentialsId
+    String helmRepo
     List<HiveSpaceApp> apps = []
 
     HiveSpaceProject(Map args = [:]) {
         this.name = args.name ?: 'UnnamedProject'
         this.gitRepo = args.gitRepo ?: ''
+        this.helmRepo = args.helmRepo ?: ''
         this.branch = args.branch ?: 'main'
         this.credentialsId = args.credentialsId ?: 'dockerhub-credentials'
         this.apps = args.apps ?: []

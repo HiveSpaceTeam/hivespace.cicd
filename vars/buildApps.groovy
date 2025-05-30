@@ -1,12 +1,12 @@
 import hivespace.entity.*
 import hivespace.constants.HiveSpaceConstants
 
-def call(HiveSpaceProject project) {
+def call(HiveSpaceProject project, String branch) {
     project.apps.each { app ->
         echo "build apps  buildFrameworkType: ${app.buildFrameworkType} - ${HiveSpaceConstants.netCore} - ${HiveSpaceConstants.nodeJsSWA}"
         switch (app.buildFrameworkType) {
             case HiveSpaceConstants.netCore:
-                deployDotnetCore(project, app)
+                deployDotnetCore(project, app, branch)
                 break
             case HiveSpaceConstants.nodeJsSWA:
                 deployStaticWebApp()
@@ -17,8 +17,8 @@ def call(HiveSpaceProject project) {
     }
 }
 
-void deployDotnetCore(HiveSpaceProject project, HiveSpaceApp app) {
-    stage('Build & Push All Apps') {
+void deployDotnetCore(HiveSpaceProject project, HiveSpaceApp app, String branch) {
+    stage('Build & Push Image') {
             withCredentials([usernamePassword(
                             credentialsId: project.credentialsId,
                             usernameVariable: 'DOCKER_USERNAME',
@@ -32,6 +32,28 @@ void deployDotnetCore(HiveSpaceProject project, HiveSpaceApp app) {
                 sh "docker build -t ${imageTag} -f ${app.buildContext}"
                 sh "docker push ${imageTag}"
             }
+                        }
+    }
+    stage('Sync Helm') {
+            // Clean workspace and clone
+            sh 'rm -rf helm-repo'
+            sh "git clone -b ${branch} ${project.helmRepo} helm-repo"
+
+        dir('helm-repo') {
+                def tag = env.BUILD_NUMBER
+                def filePath = sh(script: "find . -type f -name 'deployment.yaml' | grep templates", returnStdout: true).trim()
+                sh """
+                sed -i 's|image: \\(.*\\):.*|image: \\1:${tag}|' ${filePath}
+                """
+
+                // Commit and push changes
+                sh """
+                git config user.name "jenkins"
+                git config user.email "jenkins@yourcompany.com"
+                git add  ${filePath}
+                git commit -m "Update image tag to ${env.BUILD_NUMBER}"
+                git push origin ${branch}
+                """
         }
     }
 }
