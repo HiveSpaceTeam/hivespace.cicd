@@ -54,7 +54,7 @@ void deployDotnetCore(HiveSpaceProject project, HiveSpaceApp app, String branch)
 
                 sh """
                     git config user.name "jenkins"
-                    git config user.email "jenkins@yourcompany.com"
+                    git config user.email "jenkins@hivespace.com"
                     git remote set-url origin ${securedHelmRepo}
                     git add ${filePath}
                     git commit -m "Update image tag to ${env.BUILD_NUMBER}" || echo "Nothing to commit"
